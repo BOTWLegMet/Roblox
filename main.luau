@@ -9,15 +9,28 @@ local local_player = cloneref(PLAYERS.LocalPlayer);
 
 local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/";
 
-local success, network_module = pcall(loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/network_module.luau")));
-if not success then local_player:Kick"Failed to hook network module!" end;
+local success, network_module = xpcall(loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/network_module.luau")));
+end, function(err)
+    rconsoleinfo("Ошибка при загрузке network_module: " .. err)
+    local_player:Kick("Failed to hook network module!")
+end)
 
-local success, signal_module = pcall(loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/signal_module.luau")));
-if not success then local_player:Kick"Failed to hook signals module!" end;
+if not success then return end
 
-local character_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/character_module.luau"))(signal_module);
-local esp_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/esp_module.luau"))();
-local combat_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/combat_module.luau"))(signal_module, character_module);
+local success, signal_module = xpcall(function()
+    return loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/signal_module.luau"))()
+end, function(err)
+    rconsoleinfo("Ошибка при загрузке signal_module: " .. err)
+    local_player:Kick("Failed to hook signals module!")
+end)
+
+if not success then return end
+
+local character_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/character_module.luau"))(signal_module)
+local esp_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/esp_module.luau"))()
+local combat_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/combat_module.luau"))(signal_module, character_module)
+
+rconsoleinfo("Initialized!")
 
 esp_module:init(character_module);
 
