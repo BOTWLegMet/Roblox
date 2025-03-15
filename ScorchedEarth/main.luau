@@ -1,5 +1,5 @@
 rconsolecreate()
-rconsolesettitle("Scorched Earth | #tupsutumppu")
+rconsolesettitle("Scorched Earth | #tupsutumppu //\\ Repair Nexiicx")
 
 rconsoleinfo("Initializing...")
 
