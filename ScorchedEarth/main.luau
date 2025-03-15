@@ -7,7 +7,7 @@ rconsoleinfo("Initializing...")
 local PLAYERS = cloneref(game:GetService("Players"))
 local local_player = cloneref(PLAYERS.LocalPlayer)
 
-local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/master/ScorchedEarth/"
+local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/master/ScorchedEarth"
 
 local function safeLoadModule(url)
     local success, result = pcall(function()
