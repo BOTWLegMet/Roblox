@@ -1,6 +1,5 @@
 rconsolecreate()
 rconsolesettitle("Scorched Earth | #tupsutumppu")
-rconsoleclear()
 
 rconsoleinfo("Initializing...")
 
