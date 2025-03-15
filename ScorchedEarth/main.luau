@@ -24,13 +24,13 @@ local function safeLoadModule(url)
     end
 end
 
-local network_module = safeLoadModule(repo .. "scorchedearth/modules/network_module.luau")
+local network_module = safeLoadModule(repo .. "ScorchedEarth/modules/network_module.luau")
 if not network_module then return end  -- Если ошибка, выходим
 
-local signal_module = safeLoadModule(repo .. "scorchedearth/modules/signal_module.luau")
+local signal_module = safeLoadModule(repo .. "ScorchedEarth/modules/signal_module.luau")
 if not signal_module then return end  -- Если ошибка, выходим
 
-local character_module = loadstring(game:HttpGet(repo .. "scorchedearth/modules/character_module.luau"))(signal_module)
+local character_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/character_module.luau"))(signal_module)
 local esp_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/esp_module.luau"))()
 local combat_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/combat_module.luau"))(signal_module, character_module)
 
