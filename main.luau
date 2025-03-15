@@ -24,10 +24,10 @@ local function safeLoadModule(url)
     end
 end
 
-local network_module = safeLoadModule(repo .. "ScorchedEarth/modules/network_module.luau")
+local network_module = safeLoadModule(repo .. "/modules/network_module.luau")
 if not network_module then return end  -- Если ошибка, выходим
 
-local signal_module = safeLoadModule(repo .. "ScorchedEarth/modules/signal_module.luau")
+local signal_module = safeLoadModule(repo .. "/modules/signal_module.luau")
 if not signal_module then return end  -- Если ошибка, выходим
 
 local character_module = loadstring(game:HttpGet(repo .. "/modules/character_module.luau"))(signal_module)
@@ -38,8 +38,8 @@ rconsoleinfo("Initialized!")
 
 esp_module:init(character_module);
 
-local linoria = loadstring(game:HttpGet(repo .. "ScorchedEarth/ui/linoria.luau"))();
-local theme_manager = loadstring(game:HttpGet(repo .. "ScorchedEarth/ui/theme_manager.luau"))();
+local linoria = loadstring(game:HttpGet(repo .. "/ui/linoria.luau"))();
+local theme_manager = loadstring(game:HttpGet(repo .. "/ui/theme_manager.luau"))();
 
 local window = linoria:CreateWindow{
     Title = game:GetService"MarketplaceService":GetProductInfo(game.PlaceId).Name .. " | #tupsutumppu";
