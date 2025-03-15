@@ -6,8 +6,10 @@ rconsoleinfo("Initializing...")
 local PLAYERS = cloneref(game:GetService("Players"))
 local local_player = cloneref(PLAYERS.LocalPlayer)
 
+-- Путь к репозиторию должен заканчиваться на "/"
 local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/master/ScorchedEarth/"
 
+-- Функция для безопасной загрузки модуля
 local function safeLoadModule(url)
     local success, result = pcall(function()
         return loadstring(game:HttpGet(url))()
@@ -23,15 +25,16 @@ local function safeLoadModule(url)
     end
 end
 
+-- Убедитесь, что пути к модулям правильные и есть слэши
 local network_module = safeLoadModule(repo .. "modules/network_module.luau")
 if not network_module then return end  -- Если ошибка, выходим
 
 local signal_module = safeLoadModule(repo .. "modules/signal_module.luau")
 if not signal_module then return end  -- Если ошибка, выходим
 
-local character_module = loadstring(game:HttpGet(repo .. "modules/character_module.luau"))(signal_module)
-local esp_module = loadstring(game:HttpGet(repo .. "modules/esp_module.luau"))()
-local combat_module = loadstring(game:HttpGet(repo .. "modules/combat_module.luau"))(signal_module, character_module)
+local character_module = safeLoadModule(repo .. "modules/character_module.luau")
+local esp_module = safeLoadModule(repo .. "modules/esp_module.luau")
+local combat_module = safeLoadModule(repo .. "modules/combat_module.luau")
 
 rconsoleinfo("Initialized!")
 
