@@ -1,30 +1,34 @@
-rconsolecreate();
-rconsolesettitle"Scorched Earth | #tupsutumppu";
-rconsoleclear();
+rconsolecreate()
+rconsolesettitle("Scorched Earth | #tupsutumppu")
+rconsoleclear()
 
-rconsoleinfo"Initializing...";
+rconsoleinfo("Initializing...")
 
-local PLAYERS = cloneref(game:GetService"Players");
-local local_player = cloneref(PLAYERS.LocalPlayer);
+local PLAYERS = cloneref(game:GetService("Players"))
+local local_player = cloneref(PLAYERS.LocalPlayer)
 
-local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/";
+local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/"
 
-local success, network_module = xpcall(loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/network_module.luau")));
-end, function(err)
-    rconsoleinfo("Ошибка при загрузке network_module: " .. err)
-    local_player:Kick("Failed to hook network module!")
-end)
+local function safeLoadModule(url)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    
+    if success then
+        return result
+    else
+        rconsoleinfo("Ошибка при загрузке модуля с URL: " .. url)
+        rconsoleinfo("Ошибка: " .. result)
+        local_player:Kick("Failed to load module from: " .. url)
+        return nil
+    end
+end
 
-if not success then return end
+local network_module = safeLoadModule(repo .. "ScorchedEarth/modules/network_module.luau")
+if not network_module then return end  -- Если ошибка, выходим
 
-local success, signal_module = xpcall(function()
-    return loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/signal_module.luau"))()
-end, function(err)
-    rconsoleinfo("Ошибка при загрузке signal_module: " .. err)
-    local_player:Kick("Failed to hook signals module!")
-end)
-
-if not success then return end
+local signal_module = safeLoadModule(repo .. "ScorchedEarth/modules/signal_module.luau")
+if not signal_module then return end  -- Если ошибка, выходим
 
 local character_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/character_module.luau"))(signal_module)
 local esp_module = loadstring(game:HttpGet(repo .. "ScorchedEarth/modules/esp_module.luau"))()
