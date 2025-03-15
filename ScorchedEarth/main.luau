@@ -7,7 +7,7 @@ local PLAYERS = cloneref(game:GetService("Players"))
 local local_player = cloneref(PLAYERS.LocalPlayer)
 
 -- Путь к репозиторию должен заканчиваться на "/"
-local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/master/ScorchedEarth/"
+local repo = "https://raw.githubusercontent.com/BOTWLegMet/Roblox/main/ScorchedEarth/"
 
 -- Функция для безопасной загрузки модуля
 local function safeLoadModule(url)
